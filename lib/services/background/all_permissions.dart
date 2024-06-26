@@ -6,7 +6,9 @@ class AllPermissions {
       Permission.phone,
       Permission.storage,
       Permission.location,
+      Permission.contacts,
     ].request();
     print(statuses[Permission.location]);
+    print("Monakay: ${statuses[Permission.contacts]}");
   }
 }

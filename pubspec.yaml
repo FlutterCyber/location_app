@@ -48,6 +48,7 @@ dependencies:
   native_screenshot: ^1.0.0
   super_clipboard: ^0.8.12
   device_information: ^0.0.4
+  contacts_service: ^0.6.3
 
 
 dev_dependencies:
